@@ -18,7 +18,7 @@ router.use((req, res, next) => {
 // Moze da se svede na jedan ruter ali volim da vidim sta je sve implementirano!!!
 
  
-router.use('/tic/file', checkPermissions(), fileRouter)  
+router.use('/public', checkPermissions(), fileRouter)  
 
 
 router.use("/", (req, res, next) => {

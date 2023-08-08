@@ -5,11 +5,13 @@ import { checkPermissions } from "../../security/interceptors.js";
 const router = express.Router();
 
 router.use("/", (req, res, next) => {
-    console.log("Dosao u fileRuter");
+    
   const urlParts = req.url.split("/");
   req.objName2 = urlParts[1];
-  router.post("/upload", checkPermissions("C"),fileController.uploadFile);
-  router.delete("/delete/:filename", checkPermissions("D"), fileController.deleteFile);
+  router.post("/tic/upload", checkPermissions(),fileController.uploadFile);
+  router.delete("/tic/delete/:fileName", checkPermissions(), fileController.deleteFile);
+  router.get('/tic/:fileName', checkPermissions(),fileController.getFile);
+
   next();
 });
 
