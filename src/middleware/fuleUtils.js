@@ -4,12 +4,22 @@ import  util from 'util';
 
 const unlinkAsync = util.promisify(fs.unlink);
 const writeFileAsync = util.promisify(fs.writeFile);
+const mkdirAsync = util.promisify(fs.mkdir);
+const existsAsync = util.promisify(fs.exists);
 
 
 const uploadFile = async (file, destination) => {
   try {
     const filePath = path.join(destination, file.originalname);
-    console.log("Dosao u deleteFileUtil", filePath)
+    console.log("Dosao u uploadFile", filePath)
+
+    // Provera da li direktorijum postoji
+    const directoryExists = await existsAsync(destination);
+    
+    // Ako direktorijum ne postoji, kreiraj ga
+    if (!directoryExists) {
+      await mkdirAsync(destination, { recursive: true }); // `recursive` opcija će kreirati sve potrebne pod-direktorijume
+    }    
     await writeFileAsync(filePath, file.buffer);
     console.log('File uploaded successfully:', filePath);
     return filePath;

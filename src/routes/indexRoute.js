@@ -9,16 +9,15 @@ router.use(express.json())
 
 
 router.use((req, res, next) => {
-  if (req.path.startsWith("/adm/services/sign")) {
+  if (req.path.startsWith("/adm/services/sign") || req.method === 'GET') {
     return next();
   }
   checkJwt(req, res, next);
 });
 
-// Moze da se svede na jedan ruter ali volim da vidim sta je sve implementirano!!!
-
- 
-router.use('/public', checkPermissions(), fileRouter)  
+router.use('/public/adm', checkPermissions(), fileRouter)  
+router.use('/public/cmn', checkPermissions(), fileRouter)   
+router.use('/public/tic', fileRouter)  
 
 
 router.use("/", (req, res, next) => {

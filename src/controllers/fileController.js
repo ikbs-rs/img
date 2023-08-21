@@ -16,7 +16,9 @@ const uploadFile = (req, res) => {
     }
 
     try {
-      const destination = path.join(process.cwd(), "/public/tic/");
+      const relPath = req.query.relpath
+      //const destination = path.join(process.cwd(), "/public/tic/");
+      const destination = path.join(process.cwd(), relPath);
       console.log( "Dosao da pokusam", destination);
       const filePath = await fileUtils.uploadFile(req.file, destination);
       return res.status(200).json({ message: "File uploaded successfully", filePath });
@@ -43,8 +45,11 @@ const getFile = async (req, res) => {
   const fileName = req.params.fileName;
 
   try {
-    const filePath = path.join(process.cwd(), "/public/tic/", fileName);
-    await fileUtils.getFile(filePath, res);
+    const relPath = req.query.relpath
+      //const destination = path.join(process.cwd(), "/public/tic/");
+      const destination = path.join(process.cwd(), relPath, fileName);
+    console.log( "Dosao da pokusam!!!!!!", destination);
+    await fileUtils.getFile(destination, res);
   } catch (error) {
     console.error("Error getting file:", error);
     res.status(500).json({ error: "Error getting file" });

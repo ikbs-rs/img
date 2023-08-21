@@ -8,9 +8,9 @@ router.use("/", (req, res, next) => {
     
   const urlParts = req.url.split("/");
   req.objName2 = urlParts[1];
-  router.post("/tic/upload", checkPermissions(),fileController.uploadFile);
-  router.delete("/tic/delete/:fileName", checkPermissions(), fileController.deleteFile);
-  router.get('/tic/:fileName', checkPermissions(),fileController.getFile);
+  router.post("/upload", checkPermissions(),fileController.uploadFile);
+  router.delete("/delete/:fileName", checkPermissions(), fileController.deleteFile);
+  router.get('/:fileName',fileController.getFile);
 
   next();
 });
