@@ -23,7 +23,13 @@ const credentials = { key: privateKey, cert: certificate };
 
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', `${webDomen}`);
+  const allowedOrigins = [webDomen, '*.ems.local'];
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }    
+  //res.setHeader('Access-Control-Allow-Origin', `${webDomen}`);
   next();
 });
 
