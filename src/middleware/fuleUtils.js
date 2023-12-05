@@ -42,14 +42,21 @@ const deleteFile = async (filePath) => {
 
 const getFile = async (filePath, res) => {
   try {
-    console.log("Dosao u getFileUtil", filePath)
+    console.log("Dosao u getFileUtil", filePath);
     const stream = fs.createReadStream(filePath);
+
+    stream.on('error', (er) => {
+      console.error('Error reading file:', er);
+      res.status(500).json({ error: 'Error reading file' });
+    });
+
     stream.pipe(res);
   } catch (er) {
-    console.error('Error reading file:', er);
+    console.error('Error:', er);
     res.status(500).json({ error: 'Error reading file' });
   }
 };
+
 
 
 
