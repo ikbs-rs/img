@@ -25,7 +25,7 @@ URL_BASE = '/ticketlines/api' #ne radi trenutno kada se prosledjuje route nije b
 
 #WEB_DOMEN = 'https://dev.app.ems.rs'
 #WEB_DOMEN = 'http://82.117.213.106/'
-WEB_DOMEN = 'http://192.168.72.96/'
+WEB_DOMEN = 'http://ws10.ems.local/'
 APP_PORT = '8305'
 HTTPS_PORT = '8335'
 DATA_CENTAR = '5'
