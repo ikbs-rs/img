@@ -45,8 +45,8 @@ const getFile = async (filePath, res) => {
     console.log("Dosao u getFileUtil", filePath)
     const stream = fs.createReadStream(filePath);
     stream.pipe(res);
-  } catch (error) {
-    console.error('Error reading file:', error);
+  } catch (er) {
+    console.error('Error reading file:', er);
     res.status(500).json({ error: 'Error reading file' });
   }
 };

@@ -50,8 +50,8 @@ const getFile = async (req, res) => {
       const destination = path.join(process.cwd(), relPath, fileName);
     console.log( "Dosao da pokusam!!!!!!", destination);
     await fileUtils.getFile(destination, res);
-  } catch (error) {
-    console.error("Error getting file:", error);
+  } catch (er) {
+    console.error("Error getting file:", er);
     res.status(500).json({ error: "Error getting file" });
   }
 };
