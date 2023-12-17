@@ -19,13 +19,13 @@ DB_DATABASE = 'ikbs'
 
 #JWT_URL = 'http://ws10.ems.local:8302/badm/adm/services'
 #JWT_URL = 'http://82.117.213.106/badm/adm/services'
-JWT_URL = 'http://ws10.ems.local/badm/adm/services'
+JWT_URL = 'http://192.168.72.96/badm/adm/services'
 
 URL_BASE = '/ticketlines/api' #ne radi trenutno kada se prosledjuje route nije bitno sada
 
 #WEB_DOMEN = 'https://dev.app.ems.rs'
 #WEB_DOMEN = 'http://82.117.213.106/'
-WEB_DOMEN = 'http://ws10.ems.local/'
+WEB_DOMEN = 'http://192.168.72.96/'
 APP_PORT = '8305'
 HTTPS_PORT = '8335'
 DATA_CENTAR = '5'
