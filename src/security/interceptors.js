@@ -8,7 +8,7 @@ export const checkJwt = async (req, res, next) => {
   try {
     const jwtServer = process.env.JWT_URL;
     const token = req.headers.authorization?.replace("Bearer ", "");
-
+    //const agent = new https.Agent({ rejectUnauthorized: false });
     if (!jwtServer) {
       throw new Error(
         "Adresa udaljenog servera nije definisana u .env datoteci."
@@ -22,18 +22,23 @@ export const checkJwt = async (req, res, next) => {
           next();
         });
       } else {
+        console.log("CMN inteceptors 27!!");
         const checkJwtUrl = `${jwtServer}/checkJwt`;
+        console.log("CMN inteceptors 27!!", checkJwtUrl, token);
         const response = await axios.post(`${checkJwtUrl}`, {}, {
           headers: { Authorization: `Bearer ${token}` },
-          timeout: 5000, // vreme za koje se očekuje odgovor od udaljenog servera (u milisekundama)
+          timeout: 5000,  // vreme za koje se očekuje odgovor od udaljenog servera (u milisekundama)
+          family: 4
         });
         // provera statusa odgovora
-        if (response.status === 200 && response.data.success) {
+        console.log("CMN inteceptors 35!!");
+        if (response.status == 200 && response.data.success) {
           // ako je JWT token ispravan, prelazimo na sledeći middleware
           req.userId = response.data.userId
-          req.decodeJwt = response.data.decodeJwt
+          req.username = response.data.username
           next();
         } else {
+          console.log("01------------------checkJwtUrl-------------NO---")
           // ako nije ispravan, vraćamo poruku o grešci
           return res
             .status(401)
@@ -42,6 +47,7 @@ export const checkJwt = async (req, res, next) => {
       }
     }
   } catch (error) {
+    console.log("02------------------checkJwtUrl-------------ERROR---")
     // u slučaju greške, vraćamo objekat sa informacijama o grešci
     return res.status(error.response?.status || 500).json({
       message: error.message || "Internal Server Error",

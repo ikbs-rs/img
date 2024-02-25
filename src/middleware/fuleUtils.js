@@ -42,7 +42,7 @@ const deleteFile = async (filePath) => {
 
 const getFile = async (filePath, res) => {
   try {
-    console.log("Dosao u getFileUtil", filePath);
+    console.log("@@@@@@@@@@ Dosao u getFileUtil", filePath);
     const stream = fs.createReadStream(filePath);
 
     stream.on('error', (er) => {
