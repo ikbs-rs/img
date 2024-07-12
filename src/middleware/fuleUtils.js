@@ -8,10 +8,11 @@ const mkdirAsync = util.promisify(fs.mkdir);
 const existsAsync = util.promisify(fs.exists);
 
 
-const uploadFile = async (file, destination) => {
+const uploadFile = async (file, destination, filename) => {
   try {
-    const filePath = path.join(destination, file.originalname);
-    console.log("Dosao u uploadFile", filePath)
+    // const filePath = path.join(destination, file.originalname);
+    const filePath = path.join(destination, filename);
+    // console.log(file, "Dosao u uploadFile*********************", filePath)
 
     // Provera da li direktorijum postoji
     const directoryExists = await existsAsync(destination);

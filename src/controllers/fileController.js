@@ -19,8 +19,8 @@ const uploadFile = (req, res) => {
       const relPath = req.query.relpath
       //const destination = path.join(process.cwd(), "/public/tic/");
       const destination = path.join(process.cwd(), relPath);
-      console.log( "Dosao da pokusam", destination);
-      const filePath = await fileUtils.uploadFile(req.file, destination);
+      // console.log( req.query, "Dosao da pokusam***********************************", destination);
+      const filePath = await fileUtils.uploadFile(req.file, destination, req.query.filename);
       return res.status(200).json({ message: "File uploaded successfully", filePath });
     } catch (error) {
       return res.status(500).json({ error: "Error uploading file" });
