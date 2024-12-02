@@ -23,8 +23,8 @@ JWT_URL = 'http://localhost/badm/adm/services'
 URL_BASE = '/ticketlines/api' #ne radi trenutno kada se prosledjuje route nije bitno sada
 
 #WEB_DOMEN = 'https://dev.app.ems.rs'
-WEB_DOMEN = 'http://188.93.122.138/'
-#WEB_DOMEN = 'http://localhost/'
+# WEB_DOMEN = 'https://172.16.26.245/'
+WEB_DOMEN = 'http://localhost/'
 APP_PORT = '8305'
 HTTPS_PORT = '8335'
 DATA_CENTAR = '5'
