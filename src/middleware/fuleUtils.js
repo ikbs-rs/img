@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import  util from 'util';
+import sharp from 'sharp';
 
 const unlinkAsync = util.promisify(fs.unlink);
 const writeFileAsync = util.promisify(fs.writeFile);
@@ -8,7 +9,7 @@ const mkdirAsync = util.promisify(fs.mkdir);
 const existsAsync = util.promisify(fs.exists);
 
 
-const uploadFile = async (file, destination, filename) => {
+const uploadFile = async (file, destination, filename, resizeOptions = null) => {
   try {
     // const filePath = path.join(destination, file.originalname);
     const filePath = path.join(destination, filename);
@@ -20,9 +21,23 @@ const uploadFile = async (file, destination, filename) => {
     // Ako direktorijum ne postoji, kreiraj ga
     if (!directoryExists) {
       await mkdirAsync(destination, { recursive: true }); // `recursive` opcija će kreirati sve potrebne pod-direktorijume
-    }    
+    } 
+
     await writeFileAsync(filePath, file.buffer);
-    console.log('File uploaded successfully:', filePath);
+    // console.log('File uploaded successfully:', filePath);
+
+    if (resizeOptions) {
+      const resizedFilename = `${resizeOptions.prefix || ''}${filename}`;
+      const resizedFilePath = path.join(destination, resizedFilename);
+
+      await sharp(file.buffer)
+        .resize({ width: resizeOptions.width, height: resizeOptions.height })
+        .toFile(resizedFilePath);
+
+      // console.log('Resized file created successfully:', resizedFilePath);
+      // return { originalFilePath, resizedFilePath };
+    }
+
     return filePath;
   } catch (err) {
     console.error('Error uploading file:', err);
@@ -32,9 +47,9 @@ const uploadFile = async (file, destination, filename) => {
 
 const deleteFile = async (filePath) => {
   try {
-    console.log("Dosao u deleteFileUtil", filePath)
+    // console.log("Dosao u deleteFileUtil", filePath)
     await unlinkAsync(filePath);
-    console.log('File deleted successfully:', filePath);
+    // console.log('File deleted successfully:', filePath);
   } catch (err) {
     console.error('Error deleting file:', err);
     throw err;
@@ -43,7 +58,7 @@ const deleteFile = async (filePath) => {
 
 const getFile = async (filePath, res) => {
   try {
-    console.log("@@@@@@@@@@ Dosao u getFileUtil", filePath);
+    // console.log("@@@@@@@@@@ Dosao u getFileUtil", filePath);
     const stream = fs.createReadStream(filePath);
 
     stream.on('error', (er) => {

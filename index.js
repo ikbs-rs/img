@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 
 
 app.use((req, res, next) => { 
-  console.log(rootDir, "************IMG**************", req.url)
+  // console.log(rootDir, "************IMG**************", req.url)
   next();
 });
 
